@@ -25,5 +25,5 @@ with col2:
 
 #st.header("Sellout")
 
-df_filtrado = dados[dados.ds_subcategoria == time_frame][['mes', 'real', 'resultado_modelo']].set_index('mês')                    
+df_filtrado = dados[dados.ds_subcategoria == time_frame][['mês', 'real', 'resultado_modelo']].set_index('mês')                    
 st.altair_chart(df_filtrado, use_container_width=True)
