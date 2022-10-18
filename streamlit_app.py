@@ -5,7 +5,7 @@ from datetime import date, datetime
 st.title('Teste - Título')
 
 
-dados = pd.read_csv('final_processed_df_streamlit.csv', encoding='iso-8859-1')
+dados = pd.read_csv('final_processed_df_streamlit.csv', encoding='iso-8859-1', sep=';')
 
 
 col1, col2, = st.columns(2)
