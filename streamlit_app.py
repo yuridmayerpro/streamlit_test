@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from datetime import date, datetime
+import altair as alt
 
 st.title('Teste - Título')
 
