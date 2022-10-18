@@ -39,7 +39,7 @@ def pandas_sellout(source, x="mês", y='real'):
         alt.Chart(source)
         .mark_line(point="transparent")
         .encode(x=x, y=y)
-        .transform_calculate(color='datum.delta < 0 ? "red" : "green"')
+        #.transform_calculate(color='datum.delta < 0 ? "red" : "green"')
     )
 
     # Draw points on the line, highlight based on selection, color based on delta
@@ -56,12 +56,13 @@ def pandas_sellout(source, x="mês", y='real'):
         .encode(
             x=x,
             y=y,
-            tooltip=[x, y, alt.Tooltip("delta", format=".2%")],
+            #tooltip=[x, y, alt.Tooltip("delta", format=".2%")]
+            ,
         )
         .add_selection(hover)
     )
 
-    return (lines + points + tooltips).interactive()
+    return (lines + points).interactive()
 
 df_filtrado = dados[(dados.ds_subcategoria == time_frame) & (dados['mês'] >= start_date.strftime("%Y-%m-%d"))][['mês', 'real']]                   
 st.altair_chart(pandas_sellout(df_filtrado), use_container_width=True)
