@@ -7,7 +7,7 @@ st.title('Teste - Título')
 
 dados = pd.read_csv('final_processed_df_streamlit.csv', encoding='iso-8859-1', sep=';')
 
-
+################################### Filtros ###################################
 col1, col2, = st.columns(2)
 
 with col1:
@@ -22,7 +22,44 @@ with col2:
     time_frame = st.selectbox(
         "Produtos", ('Produto A', 'Produto B', 'Produto C', 'Produto D', 'Produto E', 'Produto F', 'Produto G', 'Produto H', 'Produto I')
     )
+    
+################################### Consctução do gráfico de sellout ###################################
+def pandas_sellout(source, x="mês", y=['real', 'resultado_modelo']):
+    # Create a selection that chooses the nearest point & selects based on x-value
+    hover = alt.selection_single(
+        fields=[x],
+        nearest=True,
+        on="mouseover",
+        empty="none",
+    )
 
-st.header("Sellout")
+    lines = (
+        alt.Chart(source)
+        .mark_line(point="transparent")
+        .encode(x=x, y=y)
+        .transform_calculate(color='datum.delta < 0 ? "red" : "green"')
+    )
+
+    # Draw points on the line, highlight based on selection, color based on delta
+    points = (
+        lines.transform_filter(hover)
+        .mark_circle(size=65)
+        .encode(color=alt.Color("color:N", scale=None))
+    )
+
+    # Draw an invisible rule at the location of the selection
+    tooltips = (
+        alt.Chart(source)
+        .mark_rule(opacity=0)
+        .encode(
+            x=x,
+            y=y,
+            tooltip=[x, y, alt.Tooltip("delta", format=".2%")],
+        )
+        .add_selection(hover)
+    )
+
+    return (lines + points + tooltips).interactive()
+
 df_filtrado = dados[dados.ds_subcategoria == time_frame][['mês', 'real', 'resultado_modelo']].set_index('mês')                    
-st.altair_chart(df_filtrado, use_container_width=True)
+st.altair_chart(pandas_sellout(df_filtrado), use_container_width=True)
