@@ -14,7 +14,7 @@ with col1:
     start_date = st.date_input(
         "Select start date",
         date(2017, 1, 1),
-        min_value=datetime.strptime("2020-01-01", "%Y-%m-%d"),
+        min_value=datetime.strptime("2017-01-01", "%Y-%m-%d"),
         max_value=datetime.now(),
     )
 
