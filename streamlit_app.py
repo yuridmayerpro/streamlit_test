@@ -30,4 +30,5 @@ with col2:
         
 ################################### Gráfico ###################################
 df_filtrado = dados[(dados.ds_subcategoria == time_frame) & (dados['mês'] >= start_date.strftime("%Y-%m-%d"))][['mês', 'real', 'resultado_modelo']]
-st.line_chart(data=df_filtrado, x='mês', y=['real', 'resultado_modelo'])
+#st.line_chart(data=df_filtrado, x='mês', y=['real', 'resultado_modelo'])
+st.line_chart(x=df_filtrado['mês'].values, y=df_filtrado['real'].values)
