@@ -7,6 +7,7 @@ st.title('Teste - Título')
 
 
 dados = pd.read_csv('final_processed_df_streamlit.csv', encoding='iso-8859-1', sep=';')
+dados.loc[:, 'mês'] = pd.to_datetime(df_evaluate_models['mês])
 
 ################################### Filtros ###################################
 col1, col2, = st.columns(2)
@@ -25,7 +26,7 @@ with col2:
     )
     
 ################################### Consctução do gráfico de sellout ###################################
-def pandas_sellout(source, x="mês", y=['real', 'resultado_modelo']):
+def pandas_sellout(source, x="mês", y='real'):
     # Create a selection that chooses the nearest point & selects based on x-value
     hover = alt.selection_single(
         fields=[x],
@@ -62,5 +63,5 @@ def pandas_sellout(source, x="mês", y=['real', 'resultado_modelo']):
 
     return (lines + points + tooltips).interactive()
 
-df_filtrado = dados[dados.ds_subcategoria == time_frame][['mês', 'real', 'resultado_modelo']]                   
+df_filtrado = dados[(dados.ds_subcategoria == time_frame) & (dados['mês'] >= start_date)][['mês', 'real']]                   
 st.altair_chart(pandas_sellout(df_filtrado), use_container_width=True)
