@@ -28,5 +28,5 @@ with col2:
     
         
 ################################### Gráfico ###################################
-df_filtrado = dados[(dados.ds_subcategoria == time_frame) & (dados['mês'] >= start_date.strftime("%Y-%m-%d"))][['mês', 'real']].set_index('mês')
-st.line_chart(df_filtrado, use_container_width=True)
+df_filtrado = dados[(dados.ds_subcategoria == time_frame) & (dados['mês'] >= start_date.strftime("%Y-%m-%d"))][['mês', 'real']]
+st.line_chart(data=df_filtrado, x='mês' ,y='real')
