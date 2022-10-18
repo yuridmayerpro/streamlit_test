@@ -23,7 +23,6 @@ with col2:
         "Produtos", ('Produto A', 'Produto B', 'Produto C', 'Produto D', 'Produto E', 'Produto F', 'Produto G', 'Produto H', 'Produto I')
     )
 
-#st.header("Sellout")
-
+st.header("Sellout")
 df_filtrado = dados[dados.ds_subcategoria == time_frame][['mês', 'real', 'resultado_modelo']].set_index('mês')                    
 st.altair_chart(df_filtrado, use_container_width=True)
