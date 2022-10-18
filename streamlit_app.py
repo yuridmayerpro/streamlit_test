@@ -19,7 +19,7 @@ with col1:
         "Select start date",
         date(2017, 1, 1),
         min_value=datetime.strptime("2017-01-01", "%Y-%m-%d"),
-        max_value=datetime.now(),
+        max_value=datetime.now())
     
 
 with col2:
