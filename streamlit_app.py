@@ -63,5 +63,5 @@ def pandas_sellout(source, x="mês", y='real'):
 
     return (lines + points + tooltips).interactive()
 
-df_filtrado = dados[(dados.ds_subcategoria == time_frame) & (dados['mês'] >= start_date.strftime("%Y-%m"))][['mês', 'real']]                   
+df_filtrado = dados[(dados.ds_subcategoria == time_frame) & (dados['mês'] >= start_date.strftime("%Y-%m-%d"))][['mês', 'real']]                   
 st.altair_chart(pandas_sellout(df_filtrado), use_container_width=True)
