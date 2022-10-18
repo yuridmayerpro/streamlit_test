@@ -28,5 +28,6 @@ with col2:
     
         
 ################################### Gráfico ###################################
+@st.cache
 df_filtrado = dados[(dados.ds_subcategoria == time_frame) & (dados['mês'] >= start_date.strftime("%Y-%m-%d"))][['mês', 'real']].set_index('mês')
-st.line_chart(filtra(dados), use_container_width=True)
+st.line_chart(df_filtrado, use_container_width=True)
