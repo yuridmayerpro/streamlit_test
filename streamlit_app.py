@@ -57,7 +57,6 @@ def pandas_sellout(source, x="mês", y='real'):
             x=x,
             y=y,
             #tooltip=[x, y, alt.Tooltip("delta", format=".2%")]
-            ,
         )
         .add_selection(hover)
     )
