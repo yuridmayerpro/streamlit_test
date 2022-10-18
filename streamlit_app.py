@@ -24,52 +24,8 @@ with col2:
     time_frame = st.selectbox(
         "Produtos", ('Produto A', 'Produto B', 'Produto C', 'Produto D', 'Produto E', 'Produto F', 'Produto G', 'Produto H', 'Produto I')
     )
-    
-################################### Consctução do gráfico de sellout ###################################
-def get_chart(source, x="mês", y='real'):
-    # Create a selection that chooses the nearest point & selects based on x-value
-    hover = alt.selection_single(
-        fields=[x],
-        nearest=True,
-        on="mouseover",
-        empty="none",
-    )
-
-    lines = (
-        alt.Chart(source, height=500, title="Sellout")
-        .mark_line()
-        .encode(
-            x=alt.X("mês", title="Data"),
-            y=alt.Y("real", title="Sellout"),
-            color="symbol",
-        )
-    )
-    
-    # Draw points on the line, and highlight based on selection
-    points = lines.transform_filter(hover).mark_circle(size=65)
-    
-    # Draw a rule at the location of the selection
-    tooltips = (
-        alt.Chart(source)
-        .mark_rule()
-        .encode(
-            x="yearmonthdate(date)",
-            y="price",
-            opacity=alt.condition(hover, alt.value(0.3), alt.value(0)),
-            tooltip=[
-                alt.Tooltip("mês", title="Data"),
-                alt.Tooltip("real", title="Sellout"),
-            ],
-        )
-        .add_selection(hover)
-    )
-
-    return (lines + points + tooltips).interactive()
 
     
-    
-    
-    
-
-df_filtrado = dados[(dados.ds_subcategoria == time_frame) & (dados['mês'] >= start_date.strftime("%Y-%m-%d"))][['mês', 'real']]                   
-st.altair_chart(get_chart(df_filtrado), use_container_width=True)
+################################### Gráfico ###################################
+df_filtrado = dados[(dados.ds_subcategoria == time_frame) & (dados['mês'] >= start_date.strftime("%Y-%m-%d"))][['mês', 'real']].set_index('mês')                
+st.line_chart(df_filtrado)
