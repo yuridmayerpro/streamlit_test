@@ -5,7 +5,6 @@ st.title('Teste - Título')
 
 
 dados = pd.read_csv('final_processed_df_streamlit.csv', encoding='iso-8859-1')
-data_corte = 
 
 
 col1, col2, = st.columns(2)
