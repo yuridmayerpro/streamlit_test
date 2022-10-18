@@ -8,6 +8,7 @@ st.title('Teste - Título')
 
 dados = pd.read_csv('final_processed_df_streamlit.csv', encoding='iso-8859-1', sep=';')
 dados.loc[:, 'mês'] = pd.to_datetime(dados['mês'])
+dados.sort_values('mês', inplace=True)
 
 
 
